@@ -1,0 +1,3 @@
+Primary colors: [#29B5E8, #11567F, # 11567F]
+Secondary colors: [#71D3DC, #FF9F36, #7D44CF, #D45B90, #8A999E]
+Tertiary colors: [#003545, #3C0045, #1C0045, #24323D]
