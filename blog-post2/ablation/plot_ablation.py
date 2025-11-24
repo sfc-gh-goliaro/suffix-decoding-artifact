@@ -28,9 +28,17 @@ for i, method in enumerate(methods):
     bars = ax1.bar(x + offset, values, bar_width, 
                    label=method, color=method_colors[i], edgecolor='black', linewidth=1)
     
-    # Add value labels on top of bars
+    # Add speedup labels on top of bars
     for j, val in enumerate(values):
-        ax1.text(x[j] + offset, val + 0.8, f'{val:.2f}', 
+        baseline_val = spec_times[0] if j == 0 else update_times[0]
+        if i == 0:
+            # Baseline - show 1.0x
+            label = '1.0x'
+        else:
+            # Calculate speedup
+            speedup = baseline_val / val
+            label = f'{speedup:.1f}x'
+        ax1.text(x[j] + offset, val + 0.8, label, 
                 ha='center', va='bottom', fontsize=11, fontweight='bold')
 
 # Customize left plot
@@ -51,8 +59,15 @@ for i, method in enumerate(methods):
     bars = ax2.bar(x_mem + offset, [memory[i]], bar_width, 
                    label=method, color=method_colors[i], edgecolor='black', linewidth=1)
     
-    # Add value labels on top of bars
-    ax2.text(x_mem[0] + offset, memory[i] + 20, f'{memory[i]}', 
+    # Add speedup labels on top of bars (memory reduction factor)
+    if i == 0:
+        # Baseline - show 1.0x
+        label = '1.0x'
+    else:
+        # Calculate memory reduction (baseline / current)
+        reduction = memory[0] / memory[i]
+        label = f'{reduction:.1f}x'
+    ax2.text(x_mem[0] + offset, memory[i] + 20, label, 
             ha='center', va='bottom', fontsize=11, fontweight='bold')
 
 # Customize right plot
@@ -66,7 +81,7 @@ ax2.set_xlim(-0.4, 0.4)  # Adjust x-axis limits to make bars same visual width a
 ax2.grid(axis='y', linestyle='--', alpha=0.7)
 
 # Add overall title
-fig.suptitle('Ablation Study: Time per Token and Memory Consumption', fontsize=18, fontweight='bold', y=0.98)
+fig.suptitle('Impact of Optimizations on Suffix Decoding Operation Performance', fontsize=18, fontweight='bold', y=0.98)
 
 # Save plot
 plt.tight_layout()
@@ -98,9 +113,17 @@ for i, method in enumerate(methods):
         bars = ax1_partial.bar(x + offset, values, bar_width, 
                        label=method, color=method_colors[i], edgecolor='black', linewidth=1)
         
-        # Add value labels on top of bars
+        # Add speedup labels on top of bars
         for j, val in enumerate(values):
-            ax1_partial.text(x[j] + offset, val + 0.8, f'{val:.2f}', 
+            baseline_val = spec_times[0] if j == 0 else update_times[0]
+            if i == 0:
+                # Baseline - show 1.0x
+                label = '1.0x'
+            else:
+                # Calculate speedup
+                speedup = baseline_val / val
+                label = f'{speedup:.1f}x'
+            ax1_partial.text(x[j] + offset, val + 0.8, label, 
                     ha='center', va='bottom', fontsize=11, fontweight='bold')
     else:
         # Plot third method transparently (invisible but maintains spacing)
@@ -128,8 +151,15 @@ for i, method in enumerate(methods):
         bars = ax2_partial.bar(x_mem + offset, [memory[i]], bar_width, 
                        label=method, color=method_colors[i], edgecolor='black', linewidth=1)
         
-        # Add value labels on top of bars
-        ax2_partial.text(x_mem[0] + offset, memory[i] + 20, f'{memory[i]}', 
+        # Add speedup labels on top of bars (memory reduction factor)
+        if i == 0:
+            # Baseline - show 1.0x
+            label = '1.0x'
+        else:
+            # Calculate memory reduction (baseline / current)
+            reduction = memory[0] / memory[i]
+            label = f'{reduction:.1f}x'
+        ax2_partial.text(x_mem[0] + offset, memory[i] + 20, label, 
                 ha='center', va='bottom', fontsize=11, fontweight='bold')
     else:
         # Plot third method transparently (invisible but maintains spacing)
@@ -147,7 +177,7 @@ ax2_partial.set_xlim(-0.4, 0.4)  # Adjust x-axis limits to make bars same visual
 ax2_partial.grid(axis='y', linestyle='--', alpha=0.7)
 
 # Add overall title
-fig2.suptitle('Ablation Study: Time per Token and Memory Consumption', fontsize=18, fontweight='bold', y=0.98)
+fig2.suptitle('Impact of Optimizations on Suffix Decoding Operation Performance', fontsize=18, fontweight='bold', y=0.98)
 
 # Save partial plot
 plt.tight_layout()
