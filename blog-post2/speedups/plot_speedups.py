@@ -8,7 +8,7 @@ import matplotlib.ticker as mtick
 
 # Data setup
 benchmarks = ['AgenticSQL', 'SWE-Bench']
-baselines = ['Vanilla', 'Eagle', 'Eagle 2', 'Eagle 3', 'PLD', 'Token Recycling', 'Suffix', 'Hybrid']
+baselines = ['Vanilla', 'Eagle', 'Eagle 2', 'Eagle 3', 'PLD', 'Token Recycling', 'SuffixDecoding', 'SuffixDecoding (Hybrid)']
 
 # Speedup data - using best performing variant for Suffix and Hybrid
 # For AgenticSQL: Suffix (linear) = 5.345 > Suffix (tree) = 5.175, so use linear
@@ -36,10 +36,10 @@ tokens_data = np.array([
 bar_width = 0.09
 positions = np.arange(len(benchmarks))
 
-# Colors for different baselines - Snowflake color palette (ordered dark to light)
-# Using primary, secondary, and tertiary colors from Snowflake branding
+# Colors for different baselines
 # Vanilla -> Eagle -> Eagle 2 -> Eagle 3 -> PLD -> Token Recycling -> Suffix -> Hybrid
-colors = ['#003545', '#11567F', '#7D44CF', '#D45B90', '#8A999E', '#FF9F36', '#29B5E8', '#71D3DC']
+# Using shades of gray/black for baselines except Suffix (#29B5E8) and Hybrid (#11567F)
+colors = ['#1a1a1a', '#404040', '#666666', '#808080', '#999999', '#b3b3b3', '#29B5E8', '#11567F']
 
 # ===================== FIGURE 1: Speedup Plot =====================
 fig1, ax1 = plt.subplots(figsize=(16, 5))
@@ -73,7 +73,7 @@ for i, baseline in enumerate(baselines):
                         fontsize=15, fontweight=fontweight)
 
 # Customize speedup plot
-ax1.set_xlabel('Benchmarks', fontsize=16, fontweight='bold')
+# ax1.set_xlabel('Benchmarks', fontsize=16, fontweight='bold')
 ax1.set_ylabel('Speedup', fontsize=16, fontweight='bold')
 ax1.set_title('Speculative Speedups over Vanilla Decoding', fontsize=18, fontweight='bold')
 ax1.set_xticks(positions)
@@ -110,7 +110,7 @@ for i, baseline in enumerate(baselines):
             ax2.text(x_pos, value + 0.1, f"{value:.1f}", ha='center', va='bottom', fontsize=15, fontweight=fontweight)
 
 # Customize mean accepted tokens plot
-ax2.set_xlabel('Benchmarks', fontsize=16, fontweight='bold')
+# ax2.set_xlabel('Benchmarks', fontsize=16, fontweight='bold')
 ax2.set_ylabel('Mean Accepted Tokens\n(tokens/step)', fontsize=16, fontweight='bold')
 ax2.set_title('Mean Accepted Tokens per Step', fontsize=18, fontweight='bold')
 ax2.set_xticks(positions)

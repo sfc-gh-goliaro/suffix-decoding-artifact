@@ -7,9 +7,9 @@ spec_times = [27.5, 8.10, 3.72]  # us (microseconds)
 update_times = [3.17, 2.06, 2.60]  # us (microseconds)
 memory = [671, 292, 433]  # MB
 
-# Snowflake colors - using colors from the palette
-# Use different colors for each method
-method_colors = ['#11567F', '#7D44CF', '#29B5E8']  # darker blue, purple, bright blue
+# Colors - shades of grey for baselines, bright blue for final optimized version
+# Similar to color scheme in plot_suffix_vs_ngram.py and plot_speedups.py
+method_colors = ['#4d4d4d', '#11567F', '#29B5E8']  # dark grey, darker blue, bright blue
 
 # Create figure with two subplots side by side
 # Use width_ratios to make left plot 2x wider than right plot
